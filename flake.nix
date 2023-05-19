@@ -82,6 +82,37 @@
 
               # for toml
               taplo.enable = true;
+
+              carg-verify = {
+                enable = true;
+
+                # The name of the hook (appears on the report table):
+                name = "Cargo Verify";
+
+                # The command to execute (mandatory):
+                entry = "cargo verify-project | jq -M .success -c --raw-output";
+
+                # The pattern of files to run on (default: "" (all))
+                # see also https://pre-commit.com/#hooks-files
+                # files = "\\.rs$";
+
+                # List of file types to run on (default: [ "file" ] (all files))
+                # see also https://pre-commit.com/#filtering-files-with-types
+                # You probably only need to specify one of `files` or `types`:
+                types = ["file" "non-executable" "text" "rust"];
+
+                # Exclude files that were matched by these patterns (default: [ ] (none)):
+                # excludes = ["irrelevant\\.c"];
+
+                # The language of the hook - tells pre-commit
+                # how to install the hook (default: "system")
+                # see also https://pre-commit.com/#supported-languages
+                language = "rust";
+
+                # Set this to false to not pass the changed files
+                # to the command (default: true):
+                # pass_filenames = false;
+              };
             };
             settings = {
               clippy.denyWarnings = true;
