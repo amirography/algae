@@ -86,6 +86,7 @@ async fn main() -> Result<()> {
         vec!["map-pointer", "normal", "Super", "BTN_RIGHT", "resize-view"],
         vec!["map", "normal", "Super", "R", "spawn", "/home/a/river/init"],
         vec!["map", "normal", "Super", "Return", "spawn", "tmux-picker"],
+        vec!["map", "normal", "Super+Shift", "Return", "spawn", "foot"],
         vec!["map", "normal", "Super", "D", "spawn", "rofi -show"],
         vec!["map", "normal", "Super", "P", "spawn", "rofi-rbw"],
         vec!["map", "normal", "Super", "J", "focus-view", "next"],
@@ -337,8 +338,8 @@ async fn startup() -> Result<()> {
 
     let handles = vec![
         restart_proc("waybar", vec![]),
-        restart_proc("v2ray", vec!["run", "-c", "~/vmess-new.json"]),
-        restart_proc("arti", vec!["proxy"]),
+        // restart_proc("v2ray", vec!["run", "-c", "~/vless-new.json"]),
+        // restart_proc("arti", vec!["proxy"]),
         restart_proc(
             "wl-paste",
             vec!["-t", "text", "--watch", "clipman", "store"],
@@ -347,6 +348,7 @@ async fn startup() -> Result<()> {
     for handle in handles {
         handle.await?;
     }
+    // start_proc("smug", vec!["proxy"]).await?;
     dbus_handle.await?;
     wall_handle.await?;
     start_proc(
@@ -381,17 +383,12 @@ async fn start_proc(process_name: &str, args: Vec<&str>) -> Result<()> {
 
 async fn restart_proc(process_name: &str, args: Vec<&str>) -> Result<()> {
     kill_procs(process_name).await?;
-    Command::new(process_name)
-        .args(&args)
-        .spawn()?
-        .wait_with_output()
-        .await?;
+    Command::new(process_name).args(&args).spawn()?;
     Ok(())
 }
 
 async fn kill_procs(process_name: &str) -> Result<()> {
     read_dir("/proc")?
-        .into_iter()
         .filter(|ent| match ent {
             Ok(file) => match file.file_type() {
                 Ok(ty) if is_proc_dir(&file.file_name()) => ty.is_dir(),
