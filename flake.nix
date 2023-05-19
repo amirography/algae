@@ -83,14 +83,14 @@
               # for toml
               taplo.enable = true;
 
-              carg-verify = {
+              cargo-verify = {
                 enable = true;
 
                 # The name of the hook (appears on the report table):
                 name = "Cargo Verify";
 
                 # The command to execute (mandatory):
-                entry = "cargo verify-project | jq -M .success -c --raw-output";
+                entry = "cargo verify-project";
 
                 # The pattern of files to run on (default: "" (all))
                 # see also https://pre-commit.com/#hooks-files
@@ -111,7 +111,7 @@
 
                 # Set this to false to not pass the changed files
                 # to the command (default: true):
-                # pass_filenames = false;
+                pass_filenames = false;
               };
             };
             settings = {
