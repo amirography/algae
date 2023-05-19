@@ -83,34 +83,66 @@
               # for toml
               taplo.enable = true;
 
+              cargo-deny = {
+                enable = true;
+                name = "Cargo Deny check";
+                entry = "cargo deny check";
+                types = ["file" "non-executable" "text" "rust"];
+                language = "rust";
+                pass_filenames = false;
+              };
+
               cargo-verify = {
                 enable = true;
-
-                # The name of the hook (appears on the report table):
                 name = "Cargo Verify";
-
-                # The command to execute (mandatory):
                 entry = "cargo verify-project";
-
-                # The pattern of files to run on (default: "" (all))
-                # see also https://pre-commit.com/#hooks-files
-                # files = "\\.rs$";
-
-                # List of file types to run on (default: [ "file" ] (all files))
-                # see also https://pre-commit.com/#filtering-files-with-types
-                # You probably only need to specify one of `files` or `types`:
                 types = ["file" "non-executable" "text" "rust"];
-
-                # Exclude files that were matched by these patterns (default: [ ] (none)):
-                # excludes = ["irrelevant\\.c"];
-
-                # The language of the hook - tells pre-commit
-                # how to install the hook (default: "system")
-                # see also https://pre-commit.com/#supported-languages
                 language = "rust";
+                pass_filenames = false;
+              };
 
-                # Set this to false to not pass the changed files
-                # to the command (default: true):
+              cargo-outdated = {
+                enable = true;
+                name = "Cargo outdated";
+                entry = "cargo outdated --exit-code 1";
+                types = ["file" "non-executable" "text" "rust"];
+                language = "rust";
+                pass_filenames = false;
+              };
+              # problem with runnig a nightly compiler!
+              # cargo-udeps = {
+              #   enable = true;
+              #   name = "Cargo unused dependencies";
+              #   entry = "rustup run nightly cargo udeps";
+              #   types = ["file" "non-executable" "text" "rust"];
+              #   language = "rust";
+              #   pass_filenames = false;
+              # };
+
+              cargo-audit = {
+                enable = true;
+                name = "Cargo audit";
+                entry = "cargo audit";
+                types = ["file" "non-executable" "text" "rust"];
+                language = "rust";
+                pass_filenames = false;
+              };
+
+              cargo-pants = {
+                enable = true;
+                name = "Cargo pants";
+                entry = "cargo pants --dev";
+                types = ["file" "non-executable" "text" "rust"];
+                language = "rust";
+                pass_filenames = false;
+              };
+
+              cargo-test = {
+                enable = true;
+                name = "Cargo test";
+                entry = "cargo test";
+                types = ["file" "non-executable" "text" "rust"];
+                language = "rust";
                 pass_filenames = false;
               };
             };

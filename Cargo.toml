@@ -2,13 +2,15 @@
 name = "algae"
 version = "0.1.0"
 edition = "2021"
+license = "MPL-2.0"
+authors = ["Amir Alesheikh <amirhossein.alehseikh@gmail.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = "1.0.69"
+anyhow = "1.0.71"
 catppuccin = "1.2.1"
-rustix = { version = "0.36.8", features = ["process"] }
-thiserror = "1.0.38"
-tokio = { version = "1.25.0", features = ["full"] }
-tokio-stream = { version = "0.1.11", features = ["fs"] }
+rustix = { version = "0.37.19", features = ["process"] }
+thiserror = "1.0.40"
+tokio = { version = "1.28.1", features = ["full"] }
+tokio-stream = { version = "0.1.14", features = ["fs"] }

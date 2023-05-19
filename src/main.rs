@@ -282,7 +282,6 @@ async fn main() -> Result<()> {
     .into_iter()
     .map(riverctl);
 
-    //
     for handle in handles {
         handle.await?;
     }
