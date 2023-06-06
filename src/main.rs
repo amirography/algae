@@ -85,8 +85,15 @@ async fn main() -> Result<()> {
         //
         vec!["map-pointer", "normal", "Super", "BTN_RIGHT", "resize-view"],
         vec!["map", "normal", "Super", "R", "spawn", "/home/a/river/init"],
-        vec!["map", "normal", "Super", "Return", "spawn", "tmux-picker"],
-        vec!["map", "normal", "Super+Shift", "Return", "spawn", "foot"],
+        vec![
+            "map",
+            "normal",
+            "Super+Shift",
+            "Return",
+            "spawn",
+            "tmux-picker",
+        ],
+        vec!["map", "normal", "Super", "Return", "spawn", "foot"],
         vec!["map", "normal", "Super", "D", "spawn", "rofi -show"],
         vec!["map", "normal", "Super", "P", "spawn", "rofi-rbw"],
         vec!["map", "normal", "Super", "J", "focus-view", "next"],
