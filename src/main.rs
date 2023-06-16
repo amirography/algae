@@ -59,6 +59,23 @@ async fn main() -> Result<()> {
             "scroll-method",
             "two-finger",
         ],
+        vec!["input", "switch-0-5-Lid_Switch", "events", "enable"],
+        vec![
+            "map-switch",
+            "normal",
+            "lid",
+            "open",
+            "spawn",
+            "wlr-randr --output eDP-1 --on",
+        ],
+        vec![
+            "map-switch",
+            "normal",
+            "lid",
+            "close",
+            "spawn",
+            "wlr-randr --output eDP-1 --off",
+        ],
         //
         // options
         //
@@ -93,7 +110,7 @@ async fn main() -> Result<()> {
             "spawn",
             "tmux-picker",
         ],
-        vec!["map", "normal", "Super", "Return", "spawn", "foot"],
+        vec!["map", "normal", "Super", "Return", "spawn", "wezterm"],
         vec!["map", "normal", "Super", "D", "spawn", "rofi -show"],
         vec!["map", "normal", "Super", "P", "spawn", "rofi-rbw"],
         vec!["map", "normal", "Super", "J", "focus-view", "next"],
@@ -275,7 +292,7 @@ async fn main() -> Result<()> {
             "None",
             "XF86MonBrightnessUp",
             "spawn",
-            "brightnessctl s 5+",
+            "brightnessctl s 10%+",
         ],
         vec![
             "map",
@@ -283,7 +300,31 @@ async fn main() -> Result<()> {
             "None",
             "XF86MonBrightnessDown",
             "spawn",
-            "brightnessctl s 5-",
+            "brightnessctl s 10%-",
+        ],
+        vec![
+            "map",
+            "normal",
+            "None",
+            "XF86AudioRaiseVolume",
+            "spawn",
+            "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        ],
+        vec![
+            "map",
+            "normal",
+            "None",
+            "XF86AudioLowerVolume",
+            "spawn",
+            "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        ],
+        vec![
+            "map",
+            "normal",
+            "None",
+            "XF86AudioMute",
+            "spawn",
+            "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         ],
     ]
     .into_iter()
