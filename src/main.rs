@@ -13,9 +13,9 @@ async fn main() -> Result<()> {
     let startup_handle = startup();
     let tags_handle = tags();
     let bg = "0x".to_owned() + &catppuccin::Flavour::Macchiato.base().hex();
-    let border_focused = "0x".to_owned() + &catppuccin::Flavour::Macchiato.flamingo().hex();
+    let border_focused = "0x".to_owned() + &catppuccin::Flavour::Macchiato.text().hex();
     let border_unfocused = "0x".to_owned() + &catppuccin::Flavour::Macchiato.base().hex();
-    let border_urgent = "0x".to_owned() + &catppuccin::Flavour::Macchiato.red().hex();
+    let border_urgent = "0x".to_owned() + &catppuccin::Flavour::Macchiato.maroon().hex();
 
     let handles = vec![
         //
@@ -102,16 +102,24 @@ async fn main() -> Result<()> {
         //
         vec!["map-pointer", "normal", "Super", "BTN_RIGHT", "resize-view"],
         vec!["map", "normal", "Super", "R", "spawn", "/home/a/river/init"],
+        // vec![
+        //     "map",
+        //     "normal",
+        //     "Super+Shift",
+        //     "Return",
+        //     "spawn",
+        //     "tmux-picker",
+        // ],
+        vec!["map", "normal", "Super", "Return", "spawn", "foot"],
+        vec!["map", "normal", "Super", "D", "spawn", "fuzzel"],
         vec![
             "map",
             "normal",
-            "Super+Shift",
-            "Return",
+            "Super",
+            "E",
             "spawn",
-            "tmux-picker",
+            "emacsclient -c -a \"emacs --daemon\"",
         ],
-        vec!["map", "normal", "Super", "Return", "spawn", "wezterm"],
-        vec!["map", "normal", "Super", "D", "spawn", "rofi -show"],
         vec!["map", "normal", "Super", "P", "spawn", "rofi-rbw"],
         vec!["map", "normal", "Super", "J", "focus-view", "next"],
         vec!["map", "normal", "Super", "K", "focus-view", "previous"],
@@ -372,15 +380,15 @@ async fn tags() -> Result<()> {
     Ok(())
 }
 async fn startup() -> Result<()> {
-    let wall_handle = wall();
+    // let wall_handle = wall();
     let dbus_handle = start_proc(
         "dbus-update-activation-environment",
         vec![
-            "SEATD_SOCK",
-            "DISPLAY",
-            "WAYLAND_DISPLAY",
-            "XDG_SESSION_TYPE",
-            "XDG_CURRENT_DESKTOP",
+            "seatd_sock",
+            "display",
+            "wayland_display",
+            "xdg_session_type",
+            "xdg_current_desktop",
         ],
     );
 
@@ -398,7 +406,12 @@ async fn startup() -> Result<()> {
     }
     // start_proc("smug", vec!["proxy"]).await?;
     dbus_handle.await?;
-    wall_handle.await?;
+    // wall_handle.await?;
+
+    // start_proc(
+    //     "emacs",
+    //     vec!["--daemon"],
+    // ).await?;
     start_proc(
         "rivertile",
         vec!["-view-padding", "05", "-outer-padding", "05"],
@@ -407,12 +420,12 @@ async fn startup() -> Result<()> {
 
     Ok(())
 }
-async fn wall() -> Result<()> {
-    // restart_proc("swww", vec!["init"]).await?;
-    // start_proc("swww", vec!["img", "~/pretty_12.png"]).await?;
-    start_proc("swaybg", vec!["-i", "/home/a/pretty_12.png"]).await?;
-    Ok(())
-}
+// async fn wall() -> Result<()> {
+//     // restart_proc("swww", vec!["init"]).await?;
+//     // start_proc("swww", vec!["img", "~/pretty_12.png"]).await?;
+//     start_proc("swaybg", vec!["-i", "/home/a/pretty_12.png"]).await?;
+//     Ok(())
+// }
 
 async fn riverctl<T: Sized + Display + AsRef<OsStr> + Debug>(args: Vec<T>) -> Result<()> {
     println!("{:#?}", &args);
